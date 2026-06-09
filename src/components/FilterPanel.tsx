@@ -165,12 +165,60 @@ const updateFilter = (
 </div>
 {/* <!-- Filter Section: Fee Range --> */}
 <div className="mb-8">
-<h3 className="text-label-md font-label-md text-on-surface-variant mb-4 uppercase tracking-wider">Fee Range (Annual)</h3>
-<input className="w-full h-1 bg-surface-container-high rounded-lg appearance-none cursor-pointer accent-secondary" type="range"/>
-<div className="flex justify-between mt-2 text-label-sm font-label-sm text-on-surface-variant">
-<span>₹50K</span>
-<span>₹10L+</span>
-</div>
+  <h3 className="text-label-md font-label-md text-on-surface-variant mb-4 uppercase tracking-wider">
+    Fee Range
+  </h3>
+
+  <div className="space-y-3">
+    <input
+      type="number"
+      placeholder="Minimum Fee"
+      id="minFee"
+      defaultValue={searchParams.get("minFee") || ""}
+      className="w-full border rounded-lg px-3 py-2"
+    />
+
+    <input
+      type="number"
+      placeholder="Maximum Fee"
+      id="maxFee"
+      defaultValue={searchParams.get("maxFee") || ""}
+      className="w-full border rounded-lg px-3 py-2"
+    />
+
+    <button
+      onClick={() => {
+        const min =
+          (
+            document.getElementById(
+              "minFee"
+            ) as HTMLInputElement
+          )?.value || "";
+
+        const max =
+          (
+            document.getElementById(
+              "maxFee"
+            ) as HTMLInputElement
+          )?.value || "";
+
+        const params = new URLSearchParams(
+          searchParams.toString()
+        );
+
+        if (min) params.set("minFee", min);
+        else params.delete("minFee");
+
+        if (max) params.set("maxFee", max);
+        else params.delete("maxFee");
+
+        router.push(`/?${params.toString()}`);
+      }}
+      className="w-full bg-secondary text-white py-2 rounded-lg"
+    >
+      Apply Fee Filter
+    </button>
+  </div>
 </div>
 {/* <!-- Ad Banner --> */}
 

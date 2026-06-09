@@ -13,6 +13,12 @@ export async function GET(req: NextRequest) {
   const page = Number(req.nextUrl.searchParams.get("page")) || 1;
   const limit = Number(req.nextUrl.searchParams.get("limit")) || 10;
 
+  const minFee =
+  Number(req.nextUrl.searchParams.get("minFee")) || 0;
+
+const maxFee =
+  Number(req.nextUrl.searchParams.get("maxFee")) || 10000000;
+
 
   const where = {
     name: {
@@ -32,6 +38,10 @@ export async function GET(req: NextRequest) {
     contains: courseLevel,
     mode: "insensitive" as const,
   },
+  fees: {
+  gte: minFee,
+  lte: maxFee,
+},
   };
 
   let orderBy = {};

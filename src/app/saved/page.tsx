@@ -52,6 +52,7 @@ export default function SavedPage() {
             />
           ))}
         </div>
+        
       </main>
 
       <Footer />

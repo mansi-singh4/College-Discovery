@@ -15,6 +15,8 @@ export default async function Home({
   location?: string;
   stream?: string;
   courseLevel?: string;
+  minFee?: string;
+maxFee?: string;
 }>;
 
 
@@ -26,13 +28,16 @@ export default async function Home({
   const location = params.location || "";
   const stream = params.stream || "";
 const courseLevel = params.courseLevel || "";
+const minFee = params.minFee || "";
+const maxFee = params.maxFee || "";
   
   
   
 
 
 const res = await fetch(
-  `http://localhost:3000/api/colleges?search=${search}&sort=${sort}&page=${page}&location=${location}&stream=${stream}&courseLevel=${courseLevel}`,
+  `http://localhost:3000/api/colleges?search=${search}&sort=${sort}&page=${page}&location=${location}&stream=${stream}&courseLevel=${courseLevel}&minFee=${minFee}
+&maxFee=${maxFee}`,
   {
     cache: "no-store",
   }
