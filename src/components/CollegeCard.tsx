@@ -107,7 +107,7 @@ export default function CollegeCard({
 
         <Link
           href={`/colleges/${college.id}`}
-          className="bg-black text-white px-6 py-2.5 rounded-lg text-center"
+          className="bg-white text-black-600 border border-black-600 hover:bg-black-100 px-6 py-2.5 rounded-lg text-center"
         >
           Details
         </Link>
