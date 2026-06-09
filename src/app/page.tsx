@@ -11,6 +11,7 @@ export default async function Home({
  searchParams: Promise<{
   search?: string;
   sort?: string;
+  page?: string;
 }>;
 
 
@@ -18,10 +19,13 @@ export default async function Home({
   const params = await searchParams;
   const search = params.search || "";
   const sort = params.sort || "";
+  const page = params.page || "1";
   
   
-  const res = await fetch(
-  `http://localhost:3000/api/colleges?search=${search}&sort=${sort}`,
+
+
+const res = await fetch(
+  `http://localhost:3000/api/colleges?search=${search}&sort=${sort}&page=${page}`,
   {
     cache: "no-store",
   }
@@ -33,7 +37,7 @@ export default async function Home({
     <>
       <Navbar />
 
-      <main className="max-w-7xl mx-auto px-8 py-8">
+      <main className="flex-1 max-w-7xl mx-auto px-8 py-8 w-full">
         <div className="flex gap-8">
           <FilterPanel />
 
@@ -61,7 +65,12 @@ export default async function Home({
   )}
 </div>
 
-            <Pagination />
+      <Pagination
+  currentPage={data.page}
+  totalPages={data.totalPages}
+  search={search}
+  sort={sort}
+/>
           </div>
         </div>
       </main>

@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <>
-      <footer className="bg-surface-container  fixed bottom-0 w-full border-t border-outline-variant">
+      <footer className="bg-surface-container w-full border border-outline-variant mt-12">
 <div className="w-full py-stack-lg px-margin-desktop max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
 <div className="flex flex-col items-center md:items-start">
 <span className="text-headline-md font-headline-md text-primary mb-2">EduDiscovery</span>

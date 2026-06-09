@@ -39,7 +39,7 @@ export default function ComparePage() {
     <>
       <Navbar />
 
-      <main className="max-w-7xl mx-auto px-8 py-8">
+      <main className="flex-1 max-w-7xl mx-auto px-8 py-8 w-full">
         <h1 className="text-3xl font-bold mb-8">
           Compare Colleges
         </h1>

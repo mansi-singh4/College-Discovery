@@ -1,22 +1,43 @@
-import React from 'react'
+"use client";
 
-const Pagination = () => {
+import Link from "next/link";
+
+export default function Pagination({
+  currentPage,
+  totalPages,
+  search,
+  sort,
+}: {
+  currentPage: number;
+  totalPages: number;
+  search: string;
+  sort: string;
+}) {
+  if (totalPages <= 1) return null;
+
   return (
-    <div className="mt-12 flex justify-center items-center gap-2">
-<button className="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors">
-<span className="material-symbols-outlined">chevron_left</span>
-</button>
-<button className="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-label-md text-label-md">1</button>
-<button className="w-10 h-10 flex items-center justify-center rounded-lg border border-transparent text-on-surface-variant hover:bg-surface-container-low font-label-md text-label-md transition-colors">2</button>
-<button className="w-10 h-10 flex items-center justify-center rounded-lg border border-transparent text-on-surface-variant hover:bg-surface-container-low font-label-md text-label-md transition-colors">3</button>
-<span className="px-2 text-on-surface-variant">...</span>
-<button className="w-10 h-10 flex items-center justify-center rounded-lg border border-transparent text-on-surface-variant hover:bg-surface-container-low font-label-md text-label-md transition-colors">12</button>
-<button className="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors">
-<span className="material-symbols-outlined">chevron_right</span>
-</button>
-</div>
+    <div className="flex justify-center gap-3 mt-10">
+      {currentPage > 1 && (
+        <Link
+          href={`/?search=${search}&sort=${sort}&page=${currentPage - 1}`}
+          className="px-4 py-2 border rounded-lg"
+        >
+          Previous
+        </Link>
+      )}
 
-  )
+      <span className="px-4 py-2 font-semibold">
+        Page {currentPage} of {totalPages}
+      </span>
+
+      {currentPage < totalPages && (
+        <Link
+          href={`/?search=${search}&sort=${sort}&page=${currentPage + 1}`}
+          className="px-4 py-2 border rounded-lg"
+        >
+          Next
+        </Link>
+      )}
+    </div>
+  );
 }
-
-export default Pagination
