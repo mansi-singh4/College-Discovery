@@ -1,6 +1,20 @@
-export default async function Home() {
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import SearchBar from "@/components/SearchBar";
+import CollegeCard from "@/components/CollegeCard";
+import FilterPanel from "@/components/FilterPanel";
+import Pagination from "@/components/Pagination";
+
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ search?: string }>;
+}) {
+  const params = await searchParams;
+  const search = params.search || "";
+
   const res = await fetch(
-    "http://localhost:3000/api/colleges",
+    `http://localhost:3000/api/colleges?search=${search}`,
     {
       cache: "no-store",
     }
@@ -9,29 +23,31 @@ export default async function Home() {
   const data = await res.json();
 
   return (
-    <main className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">
-        College Discovery
-      </h1>
+    <>
+      <Navbar />
 
-      <div className="grid gap-4">
-        {data.data.map((college: any) => (
-          <div
-            key={college.id}
-            className="border rounded-xl p-4"
-          >
-            <h2 className="text-xl font-semibold">
-              {college.name}
-            </h2>
+      <main className="max-w-7xl mx-auto px-8 py-8">
+        <div className="flex gap-8">
+          <FilterPanel />
 
-            <p>{college.location}</p>
+          <div className="flex-1">
+            <SearchBar />
 
-            <p>₹{college.fees}</p>
+            <div className="space-y-6">
+              {data.data.map((college: any) => (
+                <CollegeCard
+                  key={college.id}
+                  college={college}
+                />
+              ))}
+            </div>
 
-            <p>⭐ {college.rating}</p>
+            <Pagination />
           </div>
-        ))}
-      </div>
-    </main>
+        </div>
+      </main>
+
+      <Footer />
+    </>
   );
 }
