@@ -14,6 +14,8 @@ model College {
   fees      Int
   rating    Float
   overview  String
+  stream      String
+  courseLevel String
 
   createdAt DateTime @default(now())
 }

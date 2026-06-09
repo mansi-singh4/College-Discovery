@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import React from "react";
 
+
 const FilterPanel = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -22,6 +23,24 @@ const FilterPanel = () => {
 
   router.push(`/?${params.toString()}`);
 };
+const updateFilter = (
+  key: string,
+  value: string
+) => {
+  const params = new URLSearchParams(
+    searchParams.toString()
+  );
+
+  if (value) {
+    params.set(key, value);
+  } else {
+    params.delete(key);
+  }
+
+  params.set("page", "1");
+
+  router.push(`/?${params.toString()}`);
+};
   return (
     <aside className="w-full md:w-72 flex-shrink-0">
 <div className="bg-surface-container-lowest card-border rounded-xl p-6 sticky top-24">
@@ -30,28 +49,61 @@ const FilterPanel = () => {
 <button className="text-primary text-label-sm font-label-sm hover:underline">Reset All</button>
 </div>
 {/* <!-- Filter Section: Categories --> */}
-<div className="mb-8">
-<h3 className="text-label-md font-label-md text-on-surface-variant mb-4 uppercase tracking-wider">Stream</h3>
-<div className="space-y-3">
-<label className="flex items-center gap-3 cursor-pointer group">
-<input defaultChecked className="w-4 h-4 rounded border-outline text-secondary focus:ring-secondary" type="checkbox"/>
-<span className="text-body-md font-body-md text-on-surface group-hover:text-primary transition-colors">Engineering</span>
+<label className="flex items-center gap-3 cursor-pointer">
+  <input
+    type="radio"
+    name="stream"
+    checked={
+      searchParams.get("stream") === "Engineering"
+    }
+    onChange={() =>
+      updateFilter("stream", "Engineering")
+    }
+  />
+  <span>Engineering</span>
 </label>
-<label className="flex items-center gap-3 cursor-pointer group">
-<input className="w-4 h-4 rounded border-outline text-secondary focus:ring-secondary" type="checkbox"/>
-<span className="text-body-md font-body-md text-on-surface group-hover:text-primary transition-colors">Management</span>
-</label>
-<label className="flex items-center gap-3 cursor-pointer group">
-<input className="w-4 h-4 rounded border-outline text-secondary focus:ring-secondary" type="checkbox"/>
-<span className="text-body-md font-body-md text-on-surface group-hover:text-primary transition-colors">Medicine</span>
-</label>
-<label className="flex items-center gap-3 cursor-pointer group">
-<input className="w-4 h-4 rounded border-outline text-secondary focus:ring-secondary" type="checkbox"/>
-<span className="text-body-md font-body-md text-on-surface group-hover:text-primary transition-colors">Law</span>
-</label>
-</div>
-</div>
 
+<label className="flex items-center gap-3 cursor-pointer">
+  <input
+    type="radio"
+    name="stream"
+    checked={
+      searchParams.get("stream") === "Management"
+    }
+    onChange={() =>
+      updateFilter("stream", "Management")
+    }
+  />
+  <span>Management</span>
+</label>
+
+<label className="flex items-center gap-3 cursor-pointer">
+  <input
+    type="radio"
+    name="stream"
+    checked={
+      searchParams.get("stream") === "Medicine"
+    }
+    onChange={() =>
+      updateFilter("stream", "Medicine")
+    }
+  />
+  <span>Medicine</span>
+</label>
+
+<label className="flex items-center gap-3 cursor-pointer">
+  <input
+    type="radio"
+    name="stream"
+    checked={
+      searchParams.get("stream") === "Law"
+    }
+    onChange={() =>
+      updateFilter("stream", "Law")
+    }
+  />
+  <span>Law</span>
+</label>
 <div className="mb-8">
   <h3 className="text-label-md font-label-md text-on-surface-variant mb-4 uppercase tracking-wider">
     Location
@@ -68,12 +120,48 @@ const FilterPanel = () => {
 {/* <!-- Filter Section: Program Type --> */}
 <div className="mb-8">
 <h3 className="text-label-md font-label-md text-on-surface-variant mb-4 uppercase tracking-wider">Course Level</h3>
-<div className="flex flex-wrap gap-2">
-<button className="px-3 py-1 bg-surface-container-low text-on-surface-variant rounded-full text-label-sm font-label-sm hover:bg-secondary-fixed transition-colors">Undergrad</button>
-<button className="px-3 py-1 bg-secondary text-on-secondary rounded-full text-label-sm font-label-sm">Postgrad</button>
-<button className="px-3 py-1 bg-surface-container-low text-on-surface-variant rounded-full text-label-sm font-label-sm hover:bg-secondary-fixed transition-colors">PhD</button>
-<button className="px-3 py-1 bg-surface-container-low text-on-surface-variant rounded-full text-label-sm font-label-sm hover:bg-secondary-fixed transition-colors">Diploma</button>
-</div>
+<button
+  onClick={() =>
+    updateFilter("courseLevel", "Undergraduate")
+  }
+  className={`px-3 py-1 rounded-full text-label-sm font-label-sm transition-colors ${
+    searchParams.get("courseLevel") ===
+    "Undergraduate"
+      ? "bg-secondary text-white"
+      : "bg-surface-container-low text-on-surface-variant hover:bg-secondary-fixed"
+  }`}
+>
+  Undergrad
+</button>
+
+<button
+  onClick={() =>
+    updateFilter("courseLevel", "PhD")
+  }
+  className={`px-3 py-1 rounded-full text-label-sm font-label-sm transition-colors ${
+    searchParams.get("courseLevel") === "PhD"
+      ? "bg-secondary text-white"
+      : "bg-surface-container-low text-on-surface-variant hover:bg-secondary-fixed"
+  }`}
+>
+  PhD
+</button>
+
+
+
+<button
+  onClick={() =>
+    updateFilter("courseLevel", "Diploma")
+  }
+  className={`px-3 py-1 rounded-full text-label-sm font-label-sm transition-colors ${
+    searchParams.get("courseLevel") ===
+    "Diploma"
+      ? "bg-secondary text-white"
+      : "bg-surface-container-low text-on-surface-variant hover:bg-secondary-fixed"
+  }`}
+>
+  Diploma
+</button>
 </div>
 {/* <!-- Filter Section: Fee Range --> */}
 <div className="mb-8">

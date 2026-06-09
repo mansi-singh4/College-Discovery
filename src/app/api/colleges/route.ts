@@ -6,8 +6,13 @@ export async function GET(req: NextRequest) {
   const location = req.nextUrl.searchParams.get("location") || "";
   const sort = req.nextUrl.searchParams.get("sort") || "";
 
+  const stream = req.nextUrl.searchParams.get("stream") || "";
+  const courseLevel =
+    req.nextUrl.searchParams.get("courseLevel") || "";
+
   const page = Number(req.nextUrl.searchParams.get("page")) || 1;
   const limit = Number(req.nextUrl.searchParams.get("limit")) || 10;
+
 
   const where = {
     name: {
@@ -18,6 +23,15 @@ export async function GET(req: NextRequest) {
       contains: location,
       mode: "insensitive" as const,
     },
+     stream: {
+    contains: stream,
+    mode: "insensitive" as const,
+  },
+
+  courseLevel: {
+    contains: courseLevel,
+    mode: "insensitive" as const,
+  },
   };
 
   let orderBy = {};

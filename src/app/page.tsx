@@ -13,6 +13,8 @@ export default async function Home({
   sort?: string;
   page?: string;
   location?: string;
+  stream?: string;
+  courseLevel?: string;
 }>;
 
 
@@ -22,12 +24,15 @@ export default async function Home({
   const sort = params.sort || "";
   const page = params.page || "1";
   const location = params.location || "";
+  const stream = params.stream || "";
+const courseLevel = params.courseLevel || "";
+  
   
   
 
 
 const res = await fetch(
-  `http://localhost:3000/api/colleges?search=${search}&sort=${sort}&page=${page}&location=${location}`,
+  `http://localhost:3000/api/colleges?search=${search}&sort=${sort}&page=${page}&location=${location}&stream=${stream}&courseLevel=${courseLevel}`,
   {
     cache: "no-store",
   }
