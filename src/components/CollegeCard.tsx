@@ -1,5 +1,8 @@
+"use client";
 
 import Link from "next/link";
+import { useSavedStore } from "@/store/savedStore";
+
 type College = {
   id: string;
   name: string;
@@ -9,13 +12,16 @@ type College = {
   overview: string;
 };
 
-
-
 export default function CollegeCard({
   college,
 }: {
   college: College;
 }) {
+  const saved = useSavedStore((state) => state.saved);
+  const toggleSaved = useSavedStore((state) => state.toggleSaved);
+
+  const isSaved = saved.includes(college.id);
+
   return (
     <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.05)] transition-all group flex flex-col md:flex-row items-start md:items-center gap-6">
       
@@ -27,7 +33,7 @@ export default function CollegeCard({
 
       <div className="flex-grow">
         <div className="flex items-center gap-3 mb-1">
-          <span className="bg-surface-container-low ttext-slate-500 text-label-sm font-label-sm px-2 py-0.5 rounded">
+          <span className="bg-surface-container-low text-slate-500 text-label-sm font-label-sm px-2 py-0.5 rounded">
             Engineering
           </span>
 
@@ -55,7 +61,7 @@ export default function CollegeCard({
             </p>
           </div>
 
-          <div className="border-l border-outline-variant h-8 hidden sm:block"></div>
+          <div className="border-l border-slate-200 h-8 hidden sm:block"></div>
 
           <div>
             <p className="text-label-sm font-label-sm text-slate-500 uppercase">
@@ -70,12 +76,19 @@ export default function CollegeCard({
       </div>
 
       <div className="flex flex-row md:flex-col gap-3 w-full md:w-auto">
-        <button className="border border-slate-200 text-slate-900 font-label-md text-label-md px-6 py-2.5 rounded-lg hover:bg-surface-container-low transition-all">
+        <button className="border border-slate-200 text-slate-900 px-6 py-2.5 rounded-lg hover:bg-slate-100 transition-all">
           Compare
         </button>
 
-        <button className="border border-slate-200 text-slate-900 font-label-md text-label-md px-6 py-2.5 rounded-lg hover:bg-surface-container-low transition-all">
-          Save
+        <button
+          onClick={() => toggleSaved(college.id)}
+          className={`px-6 py-2.5 rounded-lg transition-all ${
+            isSaved
+              ? "bg-green-600 text-white"
+              : "border border-slate-200 text-slate-900 hover:bg-slate-100"
+          }`}
+        >
+          {isSaved ? "Saved ✓" : "Save"}
         </button>
 
         <Link
@@ -84,7 +97,7 @@ export default function CollegeCard({
         >
           Details
         </Link>
-              </div>
+      </div>
     </div>
   );
 }

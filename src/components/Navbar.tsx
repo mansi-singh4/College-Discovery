@@ -1,5 +1,5 @@
 
-
+import Link from "next/link";
 export default function Navbar() {
   return (
     <>
@@ -8,10 +8,25 @@ export default function Navbar() {
 <div className="flex items-center gap-8">
 <span className="text-headline-md font-headline-xl text-primary">EduDiscovery</span>
 <div className="hidden md:flex items-center gap-6">
-<a className="text-secondary border-b-2 border-secondary pb-1 font-bold text-label-md font-label-md" href="#">Colleges</a>
+<Link
+  href="/"
+  className="text-secondary border-b-2 border-secondary pb-1 font-bold text-label-md font-label-md"
+>
+  Colleges
+</Link>
 <a className="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="#">Courses</a>
-<a className="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="#">Compare</a>
-<a className="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="#">Saved</a>
+<Link
+  href="/compare"
+  className="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md"
+>
+  Compare
+</Link>
+<Link
+  href="/saved"
+  className="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md"
+>
+  Saved
+</Link>
 </div>
 </div>
 <div className="flex items-center gap-4">
