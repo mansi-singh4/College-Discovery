@@ -12,6 +12,7 @@ export default async function Home({
   search?: string;
   sort?: string;
   page?: string;
+  location?: string;
 }>;
 
 
@@ -20,12 +21,13 @@ export default async function Home({
   const search = params.search || "";
   const sort = params.sort || "";
   const page = params.page || "1";
+  const location = params.location || "";
   
   
 
 
 const res = await fetch(
-  `http://localhost:3000/api/colleges?search=${search}&sort=${sort}&page=${page}`,
+  `http://localhost:3000/api/colleges?search=${search}&sort=${sort}&page=${page}&location=${location}`,
   {
     cache: "no-store",
   }

@@ -1,8 +1,27 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
+
 import React from "react";
 
 const FilterPanel = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const handleLocationChange = (
+  e: React.ChangeEvent<HTMLInputElement>
+) => {
+  const params = new URLSearchParams(
+    searchParams.toString()
+  );
+
+  if (e.target.value) {
+    params.set("location", e.target.value);
+  } else {
+    params.delete("location");
+  }
+
+  router.push(`/?${params.toString()}`);
+};
   return (
     <aside className="w-full md:w-72 flex-shrink-0">
 <div className="bg-surface-container-lowest card-border rounded-xl p-6 sticky top-24">
@@ -31,6 +50,20 @@ const FilterPanel = () => {
 <span className="text-body-md font-body-md text-on-surface group-hover:text-primary transition-colors">Law</span>
 </label>
 </div>
+</div>
+
+<div className="mb-8">
+  <h3 className="text-label-md font-label-md text-on-surface-variant mb-4 uppercase tracking-wider">
+    Location
+  </h3>
+
+  <input
+    type="text"
+    placeholder="Enter city..."
+    defaultValue={searchParams.get("location") || ""}
+    onChange={handleLocationChange}
+    className="w-full border border-slate-200 rounded-lg px-3 py-2"
+  />
 </div>
 {/* <!-- Filter Section: Program Type --> */}
 <div className="mb-8">
