@@ -13,6 +13,7 @@ type College = {
   fees: number;
   rating: number;
   overview: string;
+  stream: string;
 };
 
 export default function SavedPage() {
@@ -49,6 +50,7 @@ export default function SavedPage() {
             <CollegeCard
               key={college.id}
               college={college}
+
             />
           ))}
         </div>

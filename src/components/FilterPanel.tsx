@@ -46,7 +46,12 @@ const updateFilter = (
 <div className="bg-surface-container-lowest card-border rounded-xl p-6 sticky top-24">
 <div className="flex justify-between items-center mb-6">
 <h2 className="font-headline-md text-headline-md text-on-surface">Filters</h2>
-<button className="text-primary text-label-sm font-label-sm hover:underline">Reset All</button>
+<button
+  onClick={() => router.push("/")}
+  className="text-primary text-label-sm font-label-sm hover:underline"
+>
+  Reset All
+</button>
 </div>
 {/* <!-- Filter Section: Categories --> */}
 <label className="flex items-center gap-3 cursor-pointer">

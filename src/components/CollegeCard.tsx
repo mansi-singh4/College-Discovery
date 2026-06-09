@@ -11,6 +11,7 @@ type College = {
   fees: number;
   rating: number;
   overview: string;
+  stream: string;
 };
 
 export default function CollegeCard({
@@ -39,7 +40,7 @@ export default function CollegeCard({
       <div className="flex-grow">
         <div className="flex items-center gap-3 mb-1">
           <span className="bg-surface-container-low text-slate-500 text-label-sm font-label-sm px-2 py-0.5 rounded">
-            Engineering
+            {college.stream}
           </span>
 
           <span className="flex items-center gap-1 text-indigo-600 text-label-sm font-label-sm">

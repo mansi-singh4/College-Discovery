@@ -11,14 +11,24 @@ export const useCompareStore = create<CompareStore>()(
     (set) => ({
       compared: [],
 
-      toggleCompare: (id) =>
-        set((state) => ({
-          compared: state.compared.includes(id)
-            ? state.compared.filter((x) => x !== id)
-            : state.compared.length < 3
-            ? [...state.compared, id]
-            : state.compared,
-        })),
+    toggleCompare: (id) =>
+  set((state) => {
+    if (state.compared.includes(id)) {
+      return {
+        compared: state.compared.filter(
+          (x) => x !== id
+        ),
+      };
+    }
+
+    if (state.compared.length >= 3) {
+      return state;
+    }
+
+    return {
+      compared: [...state.compared, id],
+    };
+  }),
     }),
     {
       name: "compare-colleges",
