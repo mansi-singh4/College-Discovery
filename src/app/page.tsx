@@ -34,13 +34,25 @@ export default async function Home({
             <SearchBar />
 
             <div className="space-y-6">
-              {data.data.map((college: any) => (
-                <CollegeCard
-                  key={college.id}
-                  college={college}
-                />
-              ))}
-            </div>
+  {data.data.length === 0 ? (
+    <div className="bg-white border border-slate-200 rounded-xl p-12 text-center">
+      <h2 className="text-2xl font-semibold text-slate-900 mb-2">
+        No colleges found
+      </h2>
+
+      <p className="text-slate-500">
+        Try searching with a different keyword.
+      </p>
+    </div>
+  ) : (
+    data.data.map((college: any) => (
+      <CollegeCard
+        key={college.id}
+        college={college}
+      />
+    ))
+  )}
+</div>
 
             <Pagination />
           </div>
