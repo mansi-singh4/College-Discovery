@@ -1,6 +1,8 @@
-
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 export default function Navbar() {
+  const pathname = usePathname();
   return (
     <>
       <header className="bg-surface-container-lowest border-b border-outline-variant top-100 w-full z-50">
@@ -10,20 +12,32 @@ export default function Navbar() {
 <div className="hidden md:flex items-center gap-6">
 <Link
   href="/"
-  className="text-secondary border-b-2 border-secondary pb-1 font-bold text-label-md font-label-md"
+  className={
+    pathname === "/"
+      ? "text-secondary border-b-2 border-secondary pb-1 font-bold"
+      : "text-on-surface-variant hover:text-primary transition-colors"
+  }
 >
   Colleges
 </Link>
-<a className="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="#">Courses</a>
+<a className="text-on-surface-variant hover:text-primary transition-colors" href="#">Courses</a>
 <Link
   href="/compare"
-  className="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md"
+  className={
+    pathname === "/compare"
+      ? "text-secondary border-b-2 border-secondary pb-1 font-bold"
+      : "text-on-surface-variant hover:text-primary transition-colors"
+  }
 >
   Compare
 </Link>
 <Link
   href="/saved"
-  className="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md"
+  className={
+    pathname === "/saved"
+      ? "text-secondary border-b-2 border-secondary pb-1 font-bold"
+      : "text-on-surface-variant hover:text-primary transition-colors"
+  }
 >
   Saved
 </Link>

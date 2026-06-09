@@ -8,17 +8,24 @@ import Pagination from "@/components/Pagination";
 export default async function Home({
   searchParams,
 }: {
-  searchParams: Promise<{ search?: string }>;
+ searchParams: Promise<{
+  search?: string;
+  sort?: string;
+}>;
+
+
 }) {
   const params = await searchParams;
   const search = params.search || "";
-
+  const sort = params.sort || "";
+  
+  
   const res = await fetch(
-    `http://localhost:3000/api/colleges?search=${search}`,
-    {
-      cache: "no-store",
-    }
-  );
+  `http://localhost:3000/api/colleges?search=${search}&sort=${sort}`,
+  {
+    cache: "no-store",
+  }
+);
 
   const data = await res.json();
 
