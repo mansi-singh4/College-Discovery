@@ -38,11 +38,11 @@ const handler = NextAuth({
           return null;
         }
 
-        if (!user.emailVerified) {
-  throw new Error(
-    "Please verify your email first."
-  );
-}
+  //       if (!user.emailVerified) {
+  // throw new Error(
+  //   "Please verify your email first."
+  // );
+// }
 
         const validPassword = await bcrypt.compare(
           credentials.password,

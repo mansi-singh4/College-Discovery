@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -44,12 +45,22 @@ export default function SignUpPage() {
         return;
       }
 
-      alert(
-        "Account created successfully. Please verify your email before signing in."
+      const loginResult = await signIn(
+        "credentials",
+        {
+          email,
+          password,
+          redirect: false,
+        }
       );
 
-      router.push("/signin");
-      return;
+      if (loginResult?.error) {
+        setError("Login failed");
+        return;
+      }
+
+      router.push("/");
+      router.refresh();
     } catch {
       setError("Something went wrong");
     } finally {
