@@ -36,8 +36,8 @@ const maxFee = params.maxFee || "";
 
 
 const res = await fetch(
-  `http://localhost:3000/api/colleges?search=${search}&sort=${sort}&page=${page}&location=${location}&stream=${stream}&courseLevel=${courseLevel}&minFee=${minFee}
-&maxFee=${maxFee}`,
+  `/api/colleges?search=${search}&sort=${sort}&page=${page}&location=${location}&stream=${stream}&courseLevel=${courseLevel}&minFee=${minFee}`
+,
   {
     cache: "no-store",
   }
