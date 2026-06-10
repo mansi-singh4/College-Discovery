@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useCompareStore } from "@/store/compareStore";
+// import { useCompareStore } from "@/store/compareStore";
 import { useRouter } from "next/navigation";
 
 type College = {
@@ -24,26 +24,28 @@ college: College;
 }) {
 const { data: session } = useSession();
 
-const compared = useCompareStore(
-(state) => state.compared
-);
+// const compared = useCompareStore(
+// (state) => state.compared
+// );
+const [isCompared, setIsCompared] =
+  useState(false);
 
-const toggleCompare = useCompareStore(
-(state) => state.toggleCompare
-);
-console.log("COMPARED ARRAY:", compared);
-console.log("COLLEGE ID:", college.id);
-console.log("COMPARED:", compared);
-console.log(
-  "INCLUDES?",
-  compared.includes(college.id)
-);
+  // const toggleCompare = useCompareStore(
+  // (state) => state.toggleCompare
+// );
+// console.log("COMPARED ARRAY:", compared);
+// console.log("COLLEGE ID:", college.id);
+// console.log("COMPARED:", compared);
+// console.log(
+//   "INCLUDES?",
+//   compared.includes(college.id)
+// );
 
-const isCompared = compared.includes(
-college.id
-);
-console.log("COMPARED:", compared);
-console.log("IS COMPARED:", isCompared);
+// const isCompared = compared.includes(
+// college.id
+// );
+// console.log("COMPARED:", compared);
+// console.log("IS COMPARED:", isCompared);
 
 const [isSaved, setIsSaved] =
 useState(false);
@@ -71,7 +73,28 @@ if (!session?.user) return;
 
 checkSaved();
 
+}, [session, college.id]);
 
+useEffect(() => {
+  async function checkCompared() {
+    if (!session?.user) return;
+
+    try {
+      const res = await fetch("/api/compare");
+      const data = await res.json();
+
+      const exists = data.some(
+        (item: any) =>
+          item.collegeId === college.id
+      );
+
+      setIsCompared(exists);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  checkCompared();
 }, [session, college.id]);
 
 const requireAuth = () => {
@@ -198,7 +221,7 @@ onClick={async () => {
         }),
       });
 
-      toggleCompare(college.id);
+      setIsCompared(false);
     } else {
       const res = await fetch("/api/compare", {
         method: "POST",
@@ -217,7 +240,7 @@ onClick={async () => {
         return;
       }
 
-      toggleCompare(college.id);
+      setIsCompared(true);
     }
   } catch (error) {
     console.error(error);

@@ -130,9 +130,18 @@ router.refresh();
               </span>
             </div>
 
-            <button className="w-full border border-slate-200 py-3 rounded-xl font-medium hover:bg-slate-50 transition-all">
-              Continue with Google
-            </button>
+<button
+  type="button"
+  onClick={() =>
+    signIn("google", {
+      callbackUrl: "/",
+    })
+  }
+  className="w-full border border-slate-300 rounded-xl py-3 flex justify-center items-center gap-2"
+>
+  <span>🔵</span>
+  Continue with Google
+</button>
 
             <p className="text-center text-sm text-slate-600 mt-6">
               Don't have an account?{" "}

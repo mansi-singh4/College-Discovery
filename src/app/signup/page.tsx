@@ -139,7 +139,31 @@ export default function SignUpPage() {
                   ? "Creating Account..."
                   : "Create Account"}
               </button>
-            </form>
+              </form>
+               <div className="relative my-6">
+              <div className="border-t border-slate-200"></div>
+
+              <span className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-3 text-sm text-slate-500">
+                OR
+              </span>
+            </div>
+
+              
+              <button
+  type="button"
+  onClick={() =>
+    signIn("google", {
+      callbackUrl: "/",
+    })
+  }
+  className="w-full border border-slate-300 rounded-xl py-3 flex justify-center items-center gap-2"
+>
+  <span>🔵</span>
+  Continue with Google
+</button>
+
+
+            
 
             <p className="text-center text-sm text-slate-600 mt-6">
               Already have an account?{" "}
