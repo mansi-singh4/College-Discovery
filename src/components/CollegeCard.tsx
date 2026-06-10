@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useSavedStore } from "@/store/savedStore";
 import { useCompareStore } from "@/store/compareStore";
+import { useRouter } from "next/navigation";
 
 type College = {
   id: string;
@@ -27,6 +28,22 @@ export default function CollegeCard({
 
   const isSaved = saved.includes(college.id);
   const isCompared = compared.includes(college.id);
+  const router = useRouter();
+const requireAuth = () => {
+  const user = localStorage.getItem("user");
+
+  if (!user) {
+    alert(
+      "Please sign in to save and compare colleges."
+    );
+
+    router.push("/signin");
+    return false;
+  }
+
+  return true;
+};
+   
 
   return (
     <div className="bg-white border border-slate-200 rounded-xl p-6 hover:shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.05)] transition-all group flex flex-col md:flex-row items-start md:items-center gap-6">
@@ -84,7 +101,11 @@ export default function CollegeCard({
       <div className="flex flex-row md:flex-col gap-3 w-full md:w-auto">
         
         <button
-          onClick={() => toggleCompare(college.id)}
+          onClick={() => {
+  if (!requireAuth()) return;
+
+  toggleCompare(college.id);
+}}
           className={`px-6 py-2.5 rounded-lg transition-all ${
             isCompared
               ? "bg-indigo-600 text-white"
@@ -95,7 +116,11 @@ export default function CollegeCard({
         </button>
 
         <button
-          onClick={() => toggleSaved(college.id)}
+          onClick={() => {
+  if (!requireAuth()) return;
+
+  toggleSaved(college.id);
+}}
           className={`px-6 py-2.5 rounded-lg transition-all ${
             isSaved
               ? "bg-green-600 text-white"
