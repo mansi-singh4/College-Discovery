@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎓 College Discovery
 
-## Getting Started
+A full-stack college discovery platform that helps students search, compare, and save colleges based on their preferences.
 
-First, run the development server:
+## 🚀 Live Demo
+
+https://college-discovery-rho.vercel.app/
+
+## ✨ Features
+
+* 🔍 Search colleges by name
+* 📍 Filter colleges by location
+* 🎓 Filter by stream and course level
+* 💰 Fee range filtering
+* ⭐ Sort colleges by fees and ratings
+* 📄 Detailed college information pages
+* ❤️ Save colleges to a personal account
+* ⚖️ Compare multiple colleges side-by-side
+* 🔐 Secure authentication with NextAuth
+* 🌐 Google Sign-In support
+* 👤 User-specific saved and compared colleges
+* 📱 Responsive design for desktop and mobile
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+* Next.js 16
+* React
+* TypeScript
+* Tailwind CSS
+
+### Backend
+
+* Next.js API Routes
+* Prisma ORM
+* PostgreSQL
+
+### Authentication
+
+* NextAuth.js
+* Google OAuth
+
+### Deployment
+
+* Vercel
+
+## 📸 Screenshots
+
+*Add screenshots of the homepage, search results, compare page, and saved colleges page.*
+
+## 🏗️ Project Structure
+
+src/
+├── app/
+├── components/
+├── lib/
+├── store/
+├── prisma/
+└── public/
+
+## ⚙️ Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/mansi-singh4/College-Discovery.git
+cd College-Discovery
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Configure environment variables:
+
+```env
+DATABASE_URL=
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+```
+
+Run locally:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎯 Future Improvements
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* AI-powered college recommendations
+* College reviews and ratings
+* Admission prediction system
+* Scholarship finder
+* Student discussion forum
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 👩‍💻 Author
 
-## Learn More
+Mansi Singh
 
-To learn more about Next.js, take a look at the following resources:
+LinkedIn: Ywww.linkedin.com/in/mansi-singh-90b521333
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+GitHub: https://github.com/mansi-singh4
