@@ -35,9 +35,12 @@ const maxFee = params.maxFee || "";
   
 
 
+const baseUrl =
+  process.env.NEXTAUTH_URL ||
+  "http://localhost:3000";
+
 const res = await fetch(
-  `/api/colleges?search=${search}&sort=${sort}&page=${page}&location=${location}&stream=${stream}&courseLevel=${courseLevel}&minFee=${minFee}`
-,
+  `${baseUrl}/api/colleges?search=${search}&sort=${sort}&page=${page}&location=${location}&stream=${stream}&courseLevel=${courseLevel}&minFee=${minFee}`,
   {
     cache: "no-store",
   }
