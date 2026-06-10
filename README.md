@@ -102,6 +102,6 @@ npm run dev
 
 Mansi Singh
 
-LinkedIn: Ywww.linkedin.com/in/mansi-singh-90b521333
+LinkedIn: www.linkedin.com/in/mansi-singh-90b521333
 
 GitHub: https://github.com/mansi-singh4
