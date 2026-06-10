@@ -127,11 +127,11 @@ const updateFilter = (
 <h3 className="text-label-md font-label-md text-on-surface-variant mb-4 uppercase tracking-wider">Course Level</h3>
 <button
   onClick={() =>
-    updateFilter("courseLevel", "Undergraduate")
+    updateFilter("courseLevel", "Undergrad")
   }
   className={`px-3 py-1 rounded-full text-label-sm font-label-sm transition-colors ${
     searchParams.get("courseLevel") ===
-    "Undergraduate"
+    "Undergrad"
       ? "bg-secondary text-white"
       : "bg-surface-container-low text-on-surface-variant hover:bg-secondary-fixed"
   }`}

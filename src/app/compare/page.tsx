@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CompareTable from "@/components/CompareTable";
-import { useCompareStore } from "@/store/compareStore";
 
 type College = {
   id: string;
@@ -16,24 +15,35 @@ type College = {
 };
 
 export default function ComparePage() {
-  const compared = useCompareStore((state) => state.compared);
+  const [colleges, setColleges] =
+    useState<College[]>([]);
 
-  const [colleges, setColleges] = useState<College[]>([]);
+  const [loading, setLoading] =
+    useState(true);
 
   useEffect(() => {
-    async function fetchColleges() {
-      const res = await fetch("/api/colleges");
-      const data = await res.json();
+    async function fetchCompared() {
+      try {
+        const res = await fetch(
+          "/api/compare"
+        );
 
-      const comparedColleges = data.data.filter(
-        (college: College) => compared.includes(college.id)
-      );
+        const data = await res.json();
 
-      setColleges(comparedColleges);
+        const comparedColleges = data.map(
+          (item: any) => item.college
+        );
+
+        setColleges(comparedColleges);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
     }
 
-    fetchColleges();
-  }, [compared]);
+    fetchCompared();
+  }, []);
 
   return (
     <>
@@ -44,7 +54,11 @@ export default function ComparePage() {
           Compare Colleges
         </h1>
 
-        <CompareTable colleges={colleges} />
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <CompareTable colleges={colleges} />
+        )}
       </main>
 
       <Footer />

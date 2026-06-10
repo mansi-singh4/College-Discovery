@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CollegeCard from "@/components/CollegeCard";
-import { useSavedStore } from "@/store/savedStore";
 
 type College = {
   id: string;
@@ -14,27 +13,34 @@ type College = {
   rating: number;
   overview: string;
   stream: string;
+  courseLevel: string;
 };
 
 export default function SavedPage() {
-  const saved = useSavedStore((state) => state.saved);
-
   const [colleges, setColleges] = useState<College[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchColleges() {
-      const res = await fetch("/api/colleges");
-      const data = await res.json();
+    async function fetchSaved() {
+      try {
+        const res = await fetch("/api/saved");
 
-      const savedColleges = data.data.filter(
-        (college: College) => saved.includes(college.id)
-      );
+        const data = await res.json();
 
-      setColleges(savedColleges);
+        const savedColleges = data.map(
+          (item: any) => item.college
+        );
+
+        setColleges(savedColleges);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
     }
 
-    fetchColleges();
-  }, [saved]);
+    fetchSaved();
+  }, []);
 
   return (
     <>
@@ -45,16 +51,22 @@ export default function SavedPage() {
           Saved Colleges
         </h1>
 
-        <div className="space-y-6">
-          {colleges.map((college) => (
-            <CollegeCard
-              key={college.id}
-              college={college}
-
-            />
-          ))}
-        </div>
-        
+        {loading ? (
+          <p>Loading...</p>
+        ) : colleges.length === 0 ? (
+          <p className="text-slate-500">
+            No saved colleges yet.
+          </p>
+        ) : (
+          <div className="space-y-6">
+            {colleges.map((college) => (
+              <CollegeCard
+                key={college.id}
+                college={college}
+              />
+            ))}
+          </div>
+        )}
       </main>
 
       <Footer />

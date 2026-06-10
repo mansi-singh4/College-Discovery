@@ -2,8 +2,11 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
+import type { Session } from "next-auth";
+import type { JWT } from "next-auth/jwt";
 
-const handler = NextAuth({
+
+export const authOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -38,12 +41,6 @@ const handler = NextAuth({
           return null;
         }
 
-  //       if (!user.emailVerified) {
-  // throw new Error(
-  //   "Please verify your email first."
-  // );
-// }
-
         const validPassword = await bcrypt.compare(
           credentials.password,
           user.password
@@ -63,23 +60,35 @@ const handler = NextAuth({
   ],
 
   session: {
-    strategy: "jwt",
+    strategy: "jwt" as const,
   },
 
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-      }
+    async jwt({
+  token,
+  user,
+}: {
+  token: JWT;
+  user: any;
+}) {
+  if (user) {
+    token.id = user.id;
+  }
 
       return token;
     },
 
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id as string;
-      }
+   async session({
+  session,
+  token,
+}: {
+  session: Session;
+  token: JWT;
+}) {
 
+   if (session.user) {
+    session.user.id = token.id as string;
+  }
       return session;
     },
   },
@@ -89,6 +98,8 @@ const handler = NextAuth({
   },
 
   secret: process.env.NEXTAUTH_SECRET,
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
