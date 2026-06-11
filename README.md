@@ -45,10 +45,6 @@ https://college-discovery-rho.vercel.app/
 
 * Vercel
 
-## 📸 Screenshots
-
-*Add screenshots of the homepage, search results, compare page, and saved colleges page.*
-
 ## 🏗️ Project Structure
 
 src/
